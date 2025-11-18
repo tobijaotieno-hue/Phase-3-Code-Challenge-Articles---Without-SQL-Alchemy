@@ -112,3 +112,11 @@ class Magazine:
         contributors = [author for author, count in author_counts.items() if count > 2]
         return contributors if contributors else None
     
+    @classmethod
+    def top_publisher(cls):
+        if not Article.all:
+            return None
+        magazine_counts = {}
+        for article in Article.all:
+            magazine_counts[article.magazine] = magazine_counts.get(article.magazine, 0) + 1
+        return max(magazine_counts, key=magazine_counts.get) if magazine_counts else None
